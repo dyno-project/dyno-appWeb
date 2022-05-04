@@ -272,11 +272,20 @@ Message:
       
       var 控制盒最後上線時間=Date.now();
       var MQTT最後連線時間=Date.now();
+      
+      // 每 5 秒發送 app_online 給 MQTT
       setInterval( ()=>{        
         publish_app_online();              
       }, 5000); 
       
-      setInterval( ()=>{      
+      // 每 10 秒檢查 MQTT 和 控制盒 連線狀態
+      setInterval( ()=>{  
+        
+        // 離 MQTT最後連線時間 超過 5 分鐘，則 reset
+        if (Date.now()-MQTT最後連線時間>300000){
+          location.reload();
+        }
+        
         if (Date.now()-MQTT最後連線時間>10000){
           console.log("MQTT timeout");
           app_status.mqttOnline=false;
@@ -299,10 +308,9 @@ Message:
           app_status.dynoOOnline=true;
           $("#dyno_status").text("已連線");               
           $("#dyno_status").css("background-color", "green");            
-        }        
-        
-        
-      }, 10000);         
+        }                        
+      }, 10000);   
+      
       
       function set_settings(){
 

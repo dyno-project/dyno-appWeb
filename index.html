@@ -32,8 +32,9 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.2d";
+      var versionStr="v0.9";
       var useLocalAPI=false;
+      var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>            
@@ -211,6 +212,8 @@ Message:
        
     <script>
       
+      var userID="";
+      
       var app_status={
         "controller_nameSet": false,
         "internetOnline": false,
@@ -345,6 +348,8 @@ Message:
         
         if (confirm(user_info.name + " 要求握力量測!\n\n如果名字跟您不符，請取消量測\n重新再從 手機 點擊 進行量測!")){
           $(".content").hide()
+          userID=user_info.userid;
+          
           $("#user_name").text("暱稱: "+user_info.name);
           $("#user_phone").text("電話: "+user_info.phone);
           $("#user_pic").attr('src', user_info.pic);
@@ -528,21 +533,59 @@ Message:
       
       async function publish_upload(){
         // 應該是用 API, 先用 mqtt ppublish 測試
-        var message; 
+//        var message;         
+//        if (app_status.mqttOnline){
+//          message = new Paho.MQTT.Message('{"RightHand":"'+$("#measureRightHand").text()+
+//                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
+//          console.log(                    '{"RightHand":"'+$("#measureRightHand").text()+
+//                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
+//          
+//          message.destinationName = controller_name+"/upload"; ;
+//          message.qos=0; //不見得要 1, 0 應該也可以
+//          await mqtt_client.send(message);
         
-        if (app_status.mqttOnline){
-          message = new Paho.MQTT.Message('{"RightHand":"'+$("#measureRightHand").text()+
-                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
-          console.log(                    '{"RightHand":"'+$("#measureRightHand").text()+
-                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
-          
-          message.destinationName = controller_name+"/upload"; ;
-          message.qos=0; //不見得要 1, 0 應該也可以
-          await mqtt_client.send(message);
+        var paramToSend=apiSite+"?API=11&DynoSN="+controller_name+
+                                "&UserId="+userID+
+                                "&LeftHand="  +$("#measureLeftHand").text()+
+                                "&RightHand=" +$("#measureRightHand").text()+
+                                "&Measure_time="+Date.now().toString();   
+        console.log(paramToSend);        
+
+        await fetch(paramToSend)
+        .then(response => response.text())
+        .then((text) => {
+          console.log(text);
+        })
+        .catch((error)=>{
+          console.log('There has been a problem with your fetch operation: ', error.message);
+        })     
+
+        
+//          await fetch(apiSite)
+//          .then(response => response.json())
+//          .then((json) => {
+//            //console.log(json);
+//            console.log("Internet Online");
+//            app_status.internetOnline=true;
+//          })
+//          .catch((error)=>{
+//            console.log('There has been a problem with your fetch operation: ', error.message);
+//            app_status.internetOnline=false;
+//           })     
+//
+//          if (app_status.internetOnline){
+//            $("#internet_status").text("已連線");               
+//            $("#internet_status").css("background-color", "green");   
+//          } else {
+//            $("#internet_status").text("未連線");               
+//            $("#internet_status").css("background-color", "red"); 
+//            $("#檢查連線按鈕").show();
+//          }        
+//          
           alert("資料上傳成功");
           
-          取消量測();
-        }
+          取消量測(); // back to the initial screen
+          
       }
       
 //      function publish(pub_msg){

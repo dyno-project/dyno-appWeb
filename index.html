@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9";
+      var versionStr="v0.9b";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -44,15 +44,15 @@ Message:
       握力器 已連線
     </div>         
 -->
-    <img src="金機.png" style="width:200px; margin:20px"> 
+    <img src="images/金機.png" style="width:200px; margin:20px"> 
     <label id="version" style="margin-left:-50px">Version</label>
           
-    <img id="gear_icon" onclick="set_settings()" src="gear_icon.png" style="width:30px; float:right; margin-right:20px; margin-top:20px">
-    <img id="spkr_icon" onclick="toggle_beep()" src="spkr_off.png" style="width:30px; float:right; margin-right:10px; margin-top:23px">
-    <img id="spkr_icon" onclick="location.reload()" src="refresh.png" style="width:30px; float:right; margin-right:10px; margin-top:23px">          
+    <img id="gear_icon" onclick="set_settings()" src="images/gear_icon.png" style="width:30px; float:right; margin-right:20px; margin-top:20px">
+    <img id="spkr_icon" onclick="toggle_beep()" src="images/spkr_off.png" style="width:30px; float:right; margin-right:10px; margin-top:23px">
+    <img id="spkr_icon" onclick="location.reload()" src="images/refresh.png" style="width:30px; float:right; margin-right:10px; margin-top:23px">          
            
     <div id="settings" style="float:right; background-color:white; border-radius:10px; margin-top:50px; margin-right:-120px; padding: 10px; display:none; z-index:2">
-        <p style="font-family:sans-serif; font-size:14px">連線控制盒:</p>
+        <p style="font-family:sans-serif; font-size:14px">連線握力器:</p>
         <input id="controller_name_input" style="width:130px; font-size:14px; padding:5px; margin-top:5px" placeholder="">
         <br><br>
         <button onclick="設定controller_name()" style="padding:5px; border-radius:5px;; color:white; background-color:red; border:none; font-size:14px; margin-left:10px; margin-top:-5px" >
@@ -68,7 +68,7 @@ Message:
     <div id="msgDialog" style=" position: absolute; left: 50%; top:0; transform:translate(-50%, 0%); background-color:white; border-radius:10px; padding: 30px; font-size:20px; display:none">
       <div id="握力器尚未設定msg">
         握力器尚未設定連接位址，請先點擊右上角的  
-        <img src="gear_icon.png" style="float:right; width:30px;"><br>
+        <img src="images/gear_icon.png" style="float:right; width:30px;"><br>
         進行設定。
       </div>
     </div>
@@ -76,16 +76,18 @@ Message:
     <div id="intro" class="content" style="margin-top:-120px">
       <div style="float:left; width:20%;text-align: center; margin-top:100px; margin-left:30px; ">
 
+<!--
         <div style="font-size:20px;font-weight:bold; padding:20px; border-radius:5px; background-color:#55555555; border-radius:10px">
           請聯絡管理人員了解如何加入 LINE 群組
         </div>
-        <div style="text-align:left; margin-left:10px; margin-top:20px; font-size:16px">
-          <div>控制盒名稱: </div>   
-          <label id="controller_status" style="float:right; margin-top:-25px; margin-right:0px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px; ">
+-->
+        <div style="text-align:left; margin-left:10px; margin-top:0px; font-size:16px">
+          <div>握力器名稱: </div>   
+          <label id="controller_status" style="float:right; margin-top:-27px; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px; ">
             未設定
           </label><br>
           
-          <div>控制盒連線: </div> 
+          <div>握力器連線: </div> 
           <label id="dyno_status" style="float:right; margin-top:-25px; margin-right:0px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px">
             未連線
           </label><br>
@@ -103,28 +105,33 @@ Message:
           <button id="檢查連線按鈕" onclick="檢查連線()" style="font-size:20px; float:right; margin-right:0px; background-color:red; color:white; border-radius:5px; padding:5px; border:none; display:none">
             檢查連線
           </button>             
-        </div>    
+        </div>  
+        
+        <div style="font-size:20px;font-weight:bold; padding:20px; border-radius:5px; background-color:#55555555; border-radius:10px; margin-top:50px">
+          請聯絡管理人員了解如何加入 LINE 群組
+        </div>
+                    
       </div>
 
       <div style="height:90%; float:left; width:26%; margin-left:4%; margin-top:10px">      
         <div style="font-size:16px; font-weight:bold">
-        <img src="step1.png" style="width:30px">
+        <img src="images/step1.png" style="width:30px">
         請打開 LINE 群組，點擊 量測握力，再打開除傳回的網址，
         </div><br>
-        <img src="linebot.png" style="width:250px; margin-top:-10px">
+        <img src="images/linebot_small.png" style="width:250px; margin-top:-10px">
       </div>
 
       <div style="height:90%; float:left; width:26%;; margin-top:10px">      
         <div style="margin-left:5%; font-size:16px; font-weight:bold">
-        <img src="step2.png" style="width:30px">
+        <img src="images/step2.png" style="width:30px">
           點擊手機畫面的 進行量測 傳送量測要求給握力器，</div><br>
-        <img src="webapp.png" style="width:250px; margin-left:5%; margin-top:-10px">
+        <img src="images/webapp_small.png" style="width:250px; margin-left:5%; margin-top:-10px">
       </div>  
     </div>        
        
     <div id="request" class="content" style="text-align:center; font-size:24px; font-family: Arial, Helvetica, sans-serif; display:none; align-items:center; display:none">
 
-      <img id="user_pic" src="./user_blank.png" style="width:200px; height:200px; border-radius:50%; margin-top:-50px" onerror="this.src='./user_blank.png';"/><br><br>
+      <img id="user_pic" src="images/user_blank.png" style="width:200px; height:200px; border-radius:50%; margin-top:-50px" onerror="this.src='images/user_blank.png';"/><br><br>
       
       <label id="user_name" ></label><br>
       <label id="user_phone"></label><br>
@@ -163,7 +170,7 @@ Message:
         <div style="margin-left:5%; font-size:18px; font-weight:bold">
           請量測右手握力，用力按壓後，放開後會嗶一聲，握力值會顯示在左邊的 右手握力數值 欄。<br>可重複量測，
         </div><br>
-        <img src="MeasureRightHand.png" style="width:300px; margin-left:5%">
+        <img src="images/MeasureRightHand.png" style="width:300px; margin-left:5%">
         
       </div>  
     </div>        
@@ -173,7 +180,7 @@ Message:
         <div style="font-size:18px; font-weight:bold">
           請量測左手握力，用力按壓後，&nbsp 放開後會嗶一聲，握力值會顯示在右邊 左手握力數值 欄。<br>可重複量測，
         </div><br>
-        <img src="MeasureLeftHand.png" style="width:300px;">
+        <img src="images/MeasureLeftHand.png" style="width:300px;">
       </div>
 
       <div style="height:90%; float:left; width:300px; margin-left:%; margin-top:10px; text-align:center">      
@@ -237,6 +244,8 @@ Message:
         $("#controller_status").text(controller_name);        
         $("#controller_status").css("color", "black");        
         $("#controller_status").css("background-color", "transparent");        
+        $("#controller_status").css("font-size", "20px");        
+        $("#controller_status").css("font-weight", "bold");        
       }
       
       //check internet online
@@ -273,7 +282,7 @@ Message:
       // connect the mqtt_client
       mqtt_client.connect(options);    
       
-      var 控制盒最後上線時間=Date.now();
+      var 握力器最後上線時間=Date.now();
       var MQTT最後連線時間=Date.now();
       
       // 每 5 秒發送 app_online 給 MQTT
@@ -281,7 +290,7 @@ Message:
         publish_app_online();              
       }, 5000); 
       
-      // 每 10 秒檢查 MQTT 和 控制盒 連線狀態
+      // 每 10 秒檢查 MQTT 和 握力器 連線狀態
       setInterval( ()=>{  
         
         // 離 MQTT最後連線時間 超過 5 分鐘，則 reset
@@ -301,13 +310,13 @@ Message:
           $("#mqtt_status").css("background-color", "green");            
         }
         
-        if (Date.now()-控制盒最後上線時間>10000){
-          console.log("控制盒 offline");
+        if (Date.now()-握力器最後上線時間>10000){
+          console.log("握力器 offline");
           app_status.dynoOnline=false;
           $("#dyno_status").text("未連線");               
           $("#dyno_status").css("background-color", "red");            
         } else {
-          console.log("控制盒 online");
+          console.log("握力器 online");
           app_status.dynoOOnline=true;
           $("#dyno_status").text("已連線");               
           $("#dyno_status").css("background-color", "green");            
@@ -338,14 +347,12 @@ Message:
         }        
         
         if (!app_status.dynoOnline) {
-          alert("控制盒尚未連線，請打開控制盒!");
+          alert("握力器尚未連線，請打開握力器!");
           return;
         }        
           
         $("#gear_icon").hide();
-        
-        current_state=1;
-        
+              
         if (confirm(user_info.name + " 要求握力量測!\n\n如果名字跟您不符，請取消量測\n重新再從 手機 點擊 進行量測!")){
           $(".content").hide()
           userID=user_info.userid;
@@ -354,7 +361,7 @@ Message:
           $("#user_phone").text("電話: "+user_info.phone);
           $("#user_pic").attr('src', user_info.pic);
           $("#request").show();  
-
+          current_state=1;
           beep(); // depends on beep_enable
         } else {
           $("#user_name").text("");
@@ -372,7 +379,6 @@ Message:
       
       function 取消量測(){
         //window.location.href = window.location.href;
-        console.log("aaaa");
         current_state=0;
         $(".content").hide();
         $("#intro").show();
@@ -417,7 +423,7 @@ Message:
           mqtt_client.subscribe($("#controller_name_input").val()+"/#"); 
           publish_app_online();
         } else {
-          console.log("控制盒名稱不得為空白");
+          console.log("握力器名稱不得為空白");
         }
       }
 
@@ -451,11 +457,12 @@ Message:
           case "dyno_online":
               var online_info=JSON.parse(message.payloadString);
               //console.log(online_info);    
-              控制盒最後上線時間=online_info;
+              //握力器最後上線時間=online_info;
+              握力器最後上線時間=Date.now();
               app_status.dynoOnline=true;
               $("#dyno_status").text("已連線");               
               $("#dyno_status").css("background-color", "green");  
-              current_state=0; // ready
+              //current_state=0; // ready
               break;    
           case "dyno_offline":
               var online_info=JSON.parse(message.payloadString);
@@ -482,6 +489,7 @@ Message:
               //ble.online true/false 代表 ESP32 有無連上握力器的 BLE
               break;
           case "dyno_data":
+              console.log(message.payloadString);            
               var dyna_data=JSON.parse(message.payloadString);
               console.log(dyna_data);
               //dyna_data.measurement string 代表 握力器 傳來的測量值
@@ -489,7 +497,7 @@ Message:
               break;  
           case "app_online":
               var online_info=JSON.parse(message.payloadString);   
-              console.log(online_info);
+              //console.log(online_info);
               MQTT最後連線時間=online_info;
               app_status.mqttOnline=true;
               $("#mqtt_status").text("已連線");               
@@ -650,12 +658,13 @@ Message:
       
       function process_dyno_data(dyna_data){
         flash_reading();
+        console.log(current_state, typeof dyna_data.value);
         if (current_state==2) {
-          $("#measureRightHand").text(dyna_data.value);
-          $("#measureRightHand2").text(dyna_data.value);
+          $("#measureRightHand").text(dyna_data.value/10);
+          $("#measureRightHand2").text(dyna_data.value/10);
         }
         else if (current_state==3)
-          $("#measureLeftHand").text(dyna_data.value);
+          $("#measureLeftHand").text(dyna_data.value/10);
       };
             
       function beep() {
@@ -668,10 +677,10 @@ Message:
       function toggle_beep(){
         if (beep_enable==false){
           beep_enable=true;
-          $("#spkr_icon").attr("src", "spkr_on.png");
+          $("#spkr_icon").attr("src", "images/spkr_on.png");
         }else {
           beep_enable=false;
-          $("#spkr_icon").attr("src", "spkr_off.png");          
+          $("#spkr_icon").attr("src", "images/spkr_off.png");          
         }
       }
       

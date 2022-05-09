@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9b";
+      var versionStr="v0.9c";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -44,8 +44,8 @@ Message:
       握力器 已連線
     </div>         
 -->
-    <img src="images/金機.png" style="width:200px; margin:20px"> 
-    <label id="version" style="margin-left:-50px">Version</label>
+    <img src="images/金機.png" style="width:200px; margin:20px">
+    <label id="version" style="margin-left:-65px">Version</label>
           
     <img id="gear_icon" onclick="set_settings()" src="images/gear_icon.png" style="width:30px; float:right; margin-right:20px; margin-top:20px">
     <img id="spkr_icon" onclick="toggle_beep()" src="images/spkr_off.png" style="width:30px; float:right; margin-right:10px; margin-top:23px">
@@ -246,6 +246,7 @@ Message:
         $("#controller_status").css("background-color", "transparent");        
         $("#controller_status").css("font-size", "20px");        
         $("#controller_status").css("font-weight", "bold");        
+        $("#controller_status").css("margin-right", "-20px");        
       }
       
       //check internet online

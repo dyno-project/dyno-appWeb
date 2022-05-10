@@ -399,11 +399,13 @@ Message:
       
       function 取消量測(){
         //window.location.href = window.location.href;
-        current_state=0;
-        $(".content").hide();
-        $("#intro").show();
-        $("#gear_icon").show()        
-        beep(); // depends on beep_enable
+        if (confirm("取消或放棄量測，資料將被清除。要再量測必須從手機 點擊 進行量測")){
+          current_state=0;
+          $(".content").hide();
+          $("#intro").show();
+          $("#gear_icon").show()        
+          beep(); // depends on beep_enable
+        }
         
       }
       

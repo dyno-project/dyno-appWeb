@@ -85,29 +85,41 @@ Message:
           <div>握力器名稱: </div>   
           <label id="controller_status" style="float:right; margin-top:-27px; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px; ">
             未設定
-          </label><br>
+          </label><br><br>
           
           <div>握力器連線: </div> 
           <label id="dyno_status" style="float:right; margin-top:-25px; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px">
             未連線
-          </label><br>
+          </label>
+          <div style="margin-top:5px">
+            <label id="握力器連線狀態" style="">狀態: 控制盒尚未連上網路</label><br> 
+          </div>        
+          <br>                   
                     
-          <div>網際網路連線: </div> 
+          <div>網路連線: </div> 
           <label id="internet_status" style="float:right; margin-top:-25px; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px">
             未連線
-          </label><br>
+          </label>
+          <div style="margin-top:5px">
+            <label id="網路連線狀態" style="">狀態: 平板連接 網際網路 中 ...</label><br> 
+          </div>  
+          <br>         
           
-          <div>資料庫連線:</div>
+          <div>資料連線:</div>
           <label id="mqtt_status" style="float:right; margin-top:-25px; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; font-size:14px">
             未連線
-          </label><br>
+          </label>
+          <div style="margin-top:5px">
+            <label id="資料連線狀態" style="">狀態: 連接資料通訊中 ...</label><br> 
+          </div>  
+          <br>           
           
           <button id="檢查連線按鈕" onclick="檢查連線()" style="font-size:20px; float:right; margin-right:-10px; background-color:red; color:white; border-radius:5px; padding:5px; border:none; display:none">
             檢查連線
           </button>             
         </div>  
         
-        <div style="font-size:20px;font-weight:bold; padding:20px; border-radius:5px; background-color:#55555555; border-radius:10px; margin-top:50px">
+        <div style="font-size:20px;font-weight:bold; padding:20px; border-radius:5px; background-color:#55555555; border-radius:10px; margin-top:20px">
           請聯絡管理人員了解如何加入 LINE 群組
         </div>
                     
@@ -303,24 +315,31 @@ Message:
           console.log("MQTT timeout");
           app_status.mqttOnline=false;
           $("#mqtt_status").text("未連線");               
-          $("#mqtt_status").css("background-color", "red");            
+          $("#mqtt_status").css("background-color", "red");   
+          $("#資料連線狀態").show();
         } else {
           console.log("MQTT is connected");
           app_status.mqttOnline=true;
           $("#mqtt_status").text("已連線");               
-          $("#mqtt_status").css("background-color", "green");            
+          $("#mqtt_status").css("background-color", "green");   
+          $("#資料連線狀態").hide();
         }
         
-        if (Date.now()-握力器最後上線時間>10000){
+        if ((Date.now()-握力器最後上線時間)>10000){
           console.log("握力器 offline");
           app_status.dynoOnline=false;
           $("#dyno_status").text("未連線");               
-          $("#dyno_status").css("background-color", "red");            
+          $("#dyno_status").css("background-color", "red");    
+          $("#握力器連線狀態").text("狀態: 控制盒尚未連上網路");
+          $("#握力器連線狀態").show();          
         } else {
-          console.log("握力器 online");
-          app_status.dynoOOnline=true;
-          $("#dyno_status").text("已連線");               
-          $("#dyno_status").css("background-color", "green");            
+          if ( $("#握力器連線狀態").text()=="狀態: OK"){
+            console.log("握力器 online");
+            app_status.dynoOnline=true;
+            $("#dyno_status").text("已連線");               
+            $("#dyno_status").css("background-color", "green");  
+            $("#握力器連線狀態").hide();
+          }
         }                        
       }, 10000);   
       
@@ -416,8 +435,8 @@ Message:
         console.log("MQTT onConnect");
         app_status.mqttOnline=true;
         $("#mqtt_status").text("已連線");               
-        $("#mqtt_status").css("background-color", "green");           
-        
+        $("#mqtt_status").css("background-color", "green");  
+        $("#資料連線狀態").hide();
         $("#檢查連線按鈕").hide();
         
         if ($("#controller_name_input").val() !=""){
@@ -457,21 +476,32 @@ Message:
         switch(cmd_status) {
           case "dyno_online":
               var online_info=JSON.parse(message.payloadString);
-              //console.log(online_info);    
-              //握力器最後上線時間=online_info;
+              console.log(online_info);    
               握力器最後上線時間=Date.now();
-              app_status.dynoOnline=true;
-              $("#dyno_status").text("已連線");               
-              $("#dyno_status").css("background-color", "green");  
-              //current_state=0; // ready
+            
+              if (online_info.status=="OK"){
+                app_status.dynoOnline=true;
+                $("#dyno_status").text("已連線");               
+                $("#dyno_status").css("background-color", "green");  
+                $("#握力器連線狀態").text("狀態: "+online_info.status); 
+                $("#握力器連線狀態").hide();    
+              } else {
+                app_status.dynoOnline=false;
+                $("#dyno_status").text("未連線");               
+                $("#dyno_status").css("background-color", "red");   
+                $("#握力器連線狀態").text("狀態: "+online_info.status);                
+                $("#握力器連線狀態").show();                 
+              }            
               break;    
           case "dyno_offline":
               var online_info=JSON.parse(message.payloadString);
-              console.log(online_info);                            
+              console.log(online_info);   
+              握力器最後上線時間=Date.now();
               app_status.dynoOnline=false;
               $("#dyno_status").text("未連線");               
               $("#dyno_status").css("background-color", "red");   
-              current_state=-2;
+              $("#握力器連線狀態").text("狀態: "+online_info.status);                
+              $("#握力器連線狀態").show();                
               break;            
           case "cmd":
               var user_info=JSON.parse(message.payloadString);
@@ -620,10 +650,12 @@ Message:
         
         if (app_status.internetOnline){
           $("#internet_status").text("已連線");               
-          $("#internet_status").css("background-color", "green");   
+          $("#internet_status").css("background-color", "green");  
+          $("#網路連線狀態").hide();
         } else {
           $("#internet_status").text("未連線");               
           $("#internet_status").css("background-color", "red"); 
+          $("#網路連線狀態").show();
           $("#檢查連線按鈕").show();
         }
       }

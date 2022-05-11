@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9d";
+      var versionStr="v0.9e";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -209,7 +209,7 @@ Message:
         <div style="margin-left:-30px; width:400px">
           <div style="font-size:24px; font-weight:bold">滿意數值後</div>
 
-          <button onclick="publish_upload()" style="margin-top:10px; padding:10px; border-radius:10px;; color:white; background-color:red; border:none; font-size:24px" >
+          <button onclick="uploadByAPI()" style="margin-top:10px; padding:10px; border-radius:10px;; color:white; background-color:red; border:none; font-size:24px" >
             上傳量測數值
           </button>
           <br><br><br>
@@ -325,7 +325,7 @@ Message:
           $("#資料連線狀態").hide();
         }
         
-        if ((Date.now()-握力器最後上線時間)>10000){
+        if ((Date.now()-握力器最後上線時間)>6000){
           console.log("握力器 offline");
           app_status.dynoOnline=false;
           $("#dyno_status").text("未連線");               
@@ -341,7 +341,7 @@ Message:
             $("#握力器連線狀態").hide();
           }
         }                        
-      }, 10000);   
+      }, 1000);   
       
       
       function set_settings(){
@@ -572,18 +572,7 @@ Message:
         }
       }
       
-      async function publish_upload(){
-        // 應該是用 API, 先用 mqtt ppublish 測試
-//        var message;         
-//        if (app_status.mqttOnline){
-//          message = new Paho.MQTT.Message('{"RightHand":"'+$("#measureRightHand").text()+
-//                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
-//          console.log(                    '{"RightHand":"'+$("#measureRightHand").text()+
-//                                          '","LeftHand":"' +$("#measureLeftHand").text()+ '","time_stamp":"'+Date.now().toString()+'"}');
-//          
-//          message.destinationName = controller_name+"/upload"; ;
-//          message.qos=0; //不見得要 1, 0 應該也可以
-//          await mqtt_client.send(message);
+      async function uploadByAPI(){
         
         var paramToSend=apiSite+"?API=11&DynoSN="+controller_name+
                                 "&UserId="+userID+
@@ -625,7 +614,12 @@ Message:
 //          
           alert("資料上傳成功");
           
-          取消量測(); // back to the initial screen
+          // back to the initial screen
+          current_state=0;
+          $(".content").hide();
+          $("#intro").show();
+          $("#gear_icon").show()        
+          beep(); // depends on beep_enable
           
       }
       

@@ -330,7 +330,7 @@ Message:
           app_status.dynoOnline=false;
           $("#dyno_status").text("未連線");               
           $("#dyno_status").css("background-color", "red");    
-          $("#握力器連線狀態").text("狀態: 控制盒尚未連上網路");
+          $("#握力器連線狀態").text("狀態: 控制盒未連上網路");
           $("#握力器連線狀態").show();          
         } else {
           if ( $("#握力器連線狀態").text()=="狀態: OK"){
@@ -495,7 +495,7 @@ Message:
                 $("#握力器連線狀態").show();                 
               }            
               break;    
-          case "dyno_offline":
+          case "dyno_offline": //目前沒用到
               var online_info=JSON.parse(message.payloadString);
               console.log(online_info);   
               握力器最後上線時間=Date.now();

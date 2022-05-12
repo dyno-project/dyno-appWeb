@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9e";
+      var versionStr="v0.9f";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -330,7 +330,7 @@ Message:
           app_status.dynoOnline=false;
           $("#dyno_status").text("未連線");               
           $("#dyno_status").css("background-color", "red");    
-          $("#握力器連線狀態").text("狀態: 控制盒未連上網路");
+          $("#握力器連線狀態").text("狀態: 未連上網路");
           $("#握力器連線狀態").show();          
         } else {
           if ( $("#握力器連線狀態").text()=="狀態: OK"){

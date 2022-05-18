@@ -469,11 +469,12 @@ Message:
 
       // called when a message arrives
       function onMessageArrived(message) {
-        //console.log("onMessageArrived:");
+        console.log("onMessageArrived:");
         
         var topic=message.destinationName.split('/');
         var sn         = topic[0];
         var cmd_status = topic[1];
+        console.log(sn, cmd_status);
         
         switch(cmd_status) {
           case "dyno_online":

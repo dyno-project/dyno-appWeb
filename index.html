@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9g";
+      var versionStr="v0.9h";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -140,9 +140,9 @@ Message:
         <img src="images/webapp_small.png" style="width:250px; margin-left:5%; margin-top:-10px">
       </div>  
       
-      <div id="dynoTest" style="float:right; width:200px; margin-right:5px; margin-top:30px">
+      <div id="dynoTest" style="display:none; float:right; width:200px; margin-right:5px; margin-top:30px">
         <div style="font-size:16px; font-weight:bold; margin-left:65px">試按 握力器</div>
-        <div id="measureDyno" style="float:right; font-size: 46px; background-color:antiquewhite; width:130px; margin-right:20px; border-radius: 20px; padding:10px; font-family:Ariel, monospace; font-weight:bold; margin-top:10px">000.0
+        <div id="measureDyno" style="float:right; font-size: 40px; background-color:antiquewhite; width:120px; margin-right:20px; border-radius: 20px; padding:10px; font-family:Ariel, monospace; font-weight:bold; margin-top:10px">000.0
         </div>
       </div>
             
@@ -338,7 +338,9 @@ Message:
           $("#dyno_status").text("未連線");               
           $("#dyno_status").css("background-color", "red");    
           $("#握力器連線狀態").text("狀態: 未連上網路");
-          $("#握力器連線狀態").show();          
+          $("#握力器連線狀態").show();     
+          
+          $("#dynoTest").hide();
         } else {
           if ( $("#握力器連線狀態").text()=="狀態: OK"){
             console.log("握力器 online");
@@ -346,6 +348,8 @@ Message:
             $("#dyno_status").text("已連線");               
             $("#dyno_status").css("background-color", "green");  
             $("#握力器連線狀態").hide();
+            
+            $("#dynoTest").show();
           }
         }                        
       }, 1000);   
@@ -702,6 +706,8 @@ Message:
         }
         else if (current_state==3)
           $("#measureLeftHand").text(dyna_data.value/10);
+        else if (current_state==0)
+          $("#measureDyno").text(dyna_data.value/10);
       };
             
       function beep() {
@@ -724,9 +730,11 @@ Message:
       function flash_reading(){
         $("#measureRightHand").css("background-color", "black"); 
         $("#measureLeftHand").css("background-color", "black"); 
+        $("#measureDyno").css("background-color", "black"); 
         setTimeout(()=>{
           $("#measureRightHand").css("background-color", "antiquewhite");
           $("#measureLeftHand").css("background-color", "antiquewhite");
+          $("#measureDyno").css("background-color", "antiquewhite");
         }, 300);
       }
       

@@ -32,7 +32,7 @@ Message:
 
   <body>
     <script>
-      var versionStr="v0.9h";
+      var app_ver="v0.9i";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
@@ -126,18 +126,19 @@ Message:
       </div>
 
       <div style="height:90%; float:left; width:26%; margin-left:4%; margin-top:10px">      
-        <div style="font-size:16px; font-weight:bold">
-        <img src="images/step1.png" style="width:30px">
-        請打開 LINE 群組，點擊 量測握力，再打開傳回的網址，
+        <div style="font-size:44px; font-weight:bold">
+        <img src="images/step1.png" style="width:60px"><br>
+        請打開 <span style="font-family: Arial, Helvetica, sans-serif;">LINE</span> 群組，點擊 
+        <span style="color:darkgreen; text-decoration:underline">&nbsp握力量測</span> &nbsp; &nbsp; &nbsp; 圖示，再打開傳回的網址，
         </div><br>
-        <img src="images/linebot_small.png" style="width:250px; margin-top:-10px">
+<!--        <img src="images/linebot_small.png" style="width:250px; margin-top:-10px">-->
       </div>
 
       <div style="height:90%; float:left; width:26%;; margin-top:10px">      
-        <div style="margin-left:5%; font-size:16px; font-weight:bold">
-        <img src="images/step2.png" style="width:30px">
-          點擊手機畫面的 進行量測 傳送量測要求給握力器，</div><br>
-        <img src="images/webapp_small.png" style="width:250px; margin-left:5%; margin-top:-10px">
+        <div style="margin-left:5%; font-size:44px; font-weight:bold">
+        <img src="images/step2.png" style="width:60px"><br>
+          再點擊手機畫面的 <span style="color:red; text-decoration:underline">進行量測</span> 按鈕，傳送量測要求給握力器，</div><br>
+<!--        <img src="images/webapp_small.png" style="width:250px; margin-left:5%; margin-top:-10px">-->
       </div>  
       
       <div id="dynoTest" style="display:none; float:right; width:200px; margin-right:5px; margin-top:30px">
@@ -247,7 +248,7 @@ Message:
         "dynoOnline": false
       };
     
-      $("#version").text(versionStr);
+      $("#version").text(app_ver);
       
       // read controller name
       var controller_name=localStorage.getItem('controller_name');

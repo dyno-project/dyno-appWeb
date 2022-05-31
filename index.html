@@ -274,25 +274,25 @@ Message:
         }
       }
       
-      async function uploadByAPI(){
-        
-        var paramToSend=apiSite+"?API=11&DynoSN="+controller_name+
-                                "&UserId="+userID+
-                                "&LeftHand="  +$("#measureLeftHand").text()+
-                                "&RightHand=" +$("#measureRightHand").text()+
-                                "&Measure_time="+Date.now().toString();   
-        console.log(paramToSend);        
-
-        //$.loading.start('上傳資料');
-        
-        await fetch(paramToSend)
-        .then(response => response.text())
-        .then((text) => {
-          console.log(text);
-        })
-        .catch((error)=>{
-          console.log('There has been a problem with your fetch operation: ', error.message);
-        })     
+//      async function uploadByAPI(){
+//        
+//        var paramToSend=apiSite+"?API=11&DynoSN="+controller_name+
+//                                "&UserId="+userID+
+//                                "&LeftHand="  +$("#measureLeftHand").text()+
+//                                "&RightHand=" +$("#measureRightHand").text()+
+//                                "&Measure_time="+Date.now().toString();   
+//        console.log(paramToSend);        
+//
+//        //$.loading.start('上傳資料');
+//        
+//        await fetch(paramToSend)
+//        .then(response => response.text())
+//        .then((text) => {
+//          console.log(text);
+//        })
+//        .catch((error)=>{
+//          console.log('There has been a problem with your fetch operation: ', error.message);
+//        })     
 
         
 //          await fetch(apiSite)
@@ -616,7 +616,8 @@ Message:
         <div style="margin-left:-30px; width:400px">
           <div style="font-size:24px; font-weight:bold">滿意數值後</div>
 
-          <button onclick="uploadByAPI()" style="margin-top:10px; padding:10px; border-radius:10px;; color:white; background-color:red; border:none; font-size:24px" >
+<!--          <button onclick="uploadByAPI()" style="margin-top:10px; padding:10px; border-radius:10px;; color:white; background-color:red; border:none; font-size:24px" >-->
+          <button onclick="" style="margin-top:10px; padding:10px; border-radius:10px;; color:white; background-color:red; border:none; font-size:24px" >
             上傳量測數值
           </button>
           <br><br><br>
@@ -704,55 +705,56 @@ Message:
       
       var 握力器最後上線時間=Date.now();
       var MQTT最後連線時間=Date.now();
-      
-      // 每 5 秒發送 app_online 給 MQTT
-      setInterval( ()=>{        
-        publish_app_online();              
-      }, 5000); 
-      
-      // 每 10 秒檢查 MQTT 和 握力器 連線狀態
-      setInterval( ()=>{  
-        
-        // 離 MQTT最後連線時間 超過 5 分鐘，則 reset
-        if (Date.now()-MQTT最後連線時間>300000){
-          location.reload();
-        }
-        
-        if (Date.now()-MQTT最後連線時間>10000){
-          console.log("MQTT timeout");
-          app_status.mqttOnline=false;
-          $("#mqtt_status").text("未連線");               
-          $("#mqtt_status").css("background-color", "red");   
-          $("#資料連線狀態").show();
-        } else {
-          console.log("MQTT is connected");
-          app_status.mqttOnline=true;
-          $("#mqtt_status").text("已連線");               
-          $("#mqtt_status").css("background-color", "green");   
-          $("#資料連線狀態").hide();
-        }
-        
-        if ((Date.now()-握力器最後上線時間)>6000){
-          console.log("握力器 offline");
-          app_status.dynoOnline=false;
-          $("#dyno_status").text("未連線");               
-          $("#dyno_status").css("background-color", "red");    
-          $("#握力器連線狀態").text("狀態: 未連上網路");
-          $("#握力器連線狀態").show();     
-          
-          $("#dynoTest").hide();
-        } else {
-          if ( $("#握力器連線狀態").text()=="狀態: OK"){
-            console.log("握力器 online");
-            app_status.dynoOnline=true;
-            $("#dyno_status").text("已連線");               
-            $("#dyno_status").css("background-color", "green");  
-            $("#握力器連線狀態").hide();
-            
-            $("#dynoTest").show();
-          }
-        }                        
-      }, 1000);   
+//      
+//      // 每 5 秒發送 app_online 給 MQTT
+//      setInterval( ()=>{        
+//        publish_app_online();              
+//      }, 5000); 
+//      
+//      // 每 10 秒檢查 MQTT 和 握力器 連線狀態
+//      setInterval( ()=>{  
+//        
+//        // 離 MQTT最後連線時間 超過 5 分鐘，則 reset
+//        if (Date.now()-MQTT最後連線時間>300000){
+//          location.reload();
+//        }
+//        
+//        if (Date.now()-MQTT最後連線時間>10000){
+//          console.log("MQTT timeout");
+//          app_status.mqttOnline=false;
+//          $("#mqtt_status").text("未連線");               
+//          $("#mqtt_status").css("background-color", "red");   
+//          $("#資料連線狀態").show();
+//        } else {
+//          console.log("MQTT is connected");
+//          app_status.mqttOnline=true;
+//          $("#mqtt_status").text("已連線");               
+//          $("#mqtt_status").css("background-color", "green");   
+//          $("#資料連線狀態").hide();
+//        }
+//        
+//        if ((Date.now()-握力器最後上線時間)>6000){
+//          console.log("握力器 offline");
+//          app_status.dynoOnline=false;
+//          $("#dyno_status").text("未連線");               
+//          $("#dyno_status").css("background-color", "red");    
+//          $("#握力器連線狀態").text("狀態: 未連上網路");
+//          $("#握力器連線狀態").show();     
+//          
+//          $("#dynoTest").hide();
+//        } else {
+//          if ( $("#握力器連線狀態").text()=="狀態: OK"){
+//            console.log("握力器 online");
+//            app_status.dynoOnline=true;
+//            $("#dyno_status").text("已連線");               
+//            $("#dyno_status").css("background-color", "green");  
+//            $("#握力器連線狀態").hide();
+//            
+//            $("#dynoTest").show();
+//          }
+//        }                        
+//      }, 1000);   
+//      
       
 //      移到前面  
 //      

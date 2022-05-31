@@ -32,15 +32,15 @@ Message:
 
   <body>      
     <script>
-      var app_ver="v0.9n";
+      var app_ver="v0.9o";
       var useLocalAPI=false;
       var apiSite=(useLocalAPI)?"http://localhost:5000/":"https://dyno-api.herokuapp.com/";
     </script>
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>   
             
-    <link rel="stylesheet" href="css/loading.css" />
-    <script src="js/loading.js"></script>   
+<!--    <link rel="stylesheet" href="css/loading.css" />-->
+<!--    <script src="js/loading.js"></script>   -->
     
           
 <script>
@@ -283,7 +283,7 @@ Message:
                                 "&Measure_time="+Date.now().toString();   
         console.log(paramToSend);        
 
-        $.loading.start('上傳資料');
+        //$.loading.start('上傳資料');
         
         await fetch(paramToSend)
         .then(response => response.text())
@@ -316,7 +316,7 @@ Message:
 //            $("#檢查連線按鈕").show();
 //          }        
 //          
-          $.loading.end();
+          //$.loading.end();
           alert("資料上傳成功");
           
           // back to the initial screen
